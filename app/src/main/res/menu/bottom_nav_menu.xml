@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:layout_width="wrap_content"
+        android:id="@+id/bottom_tuner"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/baseline_speed_24"
+        android:title="Tuner" />
+    <item
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bottom_metronome"
+        android:icon="@drawable/baseline_wind_power_24"
+        android:title="Metronome" />
+    <item
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bottom_chords"
+        android:icon="@drawable/baseline_back_hand_24"
+        android:title="Chords" />
+</menu>

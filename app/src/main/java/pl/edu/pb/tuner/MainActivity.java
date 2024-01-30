@@ -1,12 +1,15 @@
 package pl.edu.pb.tuner;
 import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.TextView;
 
 import com.ekn.gruzer.gaugelibrary.HalfGauge;
 import com.ekn.gruzer.gaugelibrary.Range;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,19 +33,26 @@ public class MainActivity extends AppCompatActivity {
 
     private HalfGauge halfGauge;
 
-    AudioDispatcher dispatcher;
-    @SuppressLint({"MissingInflatedId", "SetTextI18n"})
+    private AudioDispatcher dispatcher;
+    @SuppressLint({"MissingInflatedId", "SetTextI18n", "NonConstantResourceId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         noteTranslator = new NoteTranslator();
         setContentView(R.layout.activity_main);
+
+        BottomNavigationView bottomNavigationView= findViewById(R.id.navigationView);
+        bottomNavigationView.setSelectedItemId(R.id.bottom_tuner);
+
+
+
         upText = findViewById(R.id.upText);
         downText = findViewById(R.id.downText);
         noteText = findViewById(R.id.noteText);
         pitchText = findViewById(R.id.pitchText);
         halfGauge = findViewById(R.id.halfGauge);
+        halfGauge.setNeedleColor(Color.WHITE);
         dispatcher=AudioDispatcherFactory.fromDefaultMicrophone(22050,1024,0);
 
 
@@ -84,6 +94,25 @@ public class MainActivity extends AppCompatActivity {
         dispatcher.addAudioProcessor(pitchProcessor);
         Thread audioThread = new Thread(dispatcher, "Audio Thread");
         audioThread.start();
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if(item.getItemId()==R.id.bottom_tuner) {
+                return true;
+            }
+            else if(item.getItemId()==R.id.bottom_metronome) {
+                startActivity(new Intent(getApplicationContext(),MetronomeActivity.class));
+                overridePendingTransition(0,0);
+                finish();
+                return true;
+            }
+            else if(item.getItemId()==R.id.bottom_chords) {
+                startActivity(new Intent(getApplicationContext(),ChordsActivity.class));
+                overridePendingTransition(0,0);
+                finish();
+                return true;
+            }
+            return false;
+        });
     }
 
     public void processPitch(float pitchInHz) {
