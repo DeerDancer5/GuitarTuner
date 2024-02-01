@@ -15,6 +15,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MetronomeActivity extends AppCompatActivity {
 
     private Button startButton;
+    private Button tapButton;
 
     private Metronome metronome;
 
@@ -23,6 +24,11 @@ public class MetronomeActivity extends AppCompatActivity {
     private SeekBar seekBar;
     private int tempo;
 
+    int tapped;
+
+    long lastTap;
+
+    long sum;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -33,6 +39,7 @@ public class MetronomeActivity extends AppCompatActivity {
 
         bpm = findViewById(R.id.textBPM);
         startButton = findViewById(R.id.startButton);
+        tapButton = findViewById(R.id.tapButton);
         seekBar = findViewById(R.id.seekBar);
         seekBar.setMin(30);
 
@@ -68,6 +75,34 @@ public class MetronomeActivity extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
 
+            }
+        });
+
+        tapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                metronome.stop();
+                bpm.setText("Keep tapping");
+
+                if(tapped==0) {
+                    lastTap = System.currentTimeMillis();
+                    tapped++;
+                }
+                else if(tapped>0 &&tapped < 3) {
+                    sum += (System.currentTimeMillis() - lastTap);
+                    lastTap = System.currentTimeMillis();
+                    tapped++;
+                }
+                else if(tapped==3) {
+                    long avg = 60000L/(sum/3L);
+                    metronome.setTempo((int)avg);
+                    metronome.start();
+                    bpm.setText(avg+ " BPM");
+                    startButton.setText("Stop");
+                    seekBar.setProgress((int) avg);
+                    tapped=0;
+                    sum = 0L;
+                }
             }
         });
 

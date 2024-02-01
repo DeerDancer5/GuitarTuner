@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         upText = findViewById(R.id.upText);
         downText = findViewById(R.id.downText);
         noteText = findViewById(R.id.noteText);
-        pitchText = findViewById(R.id.pitchText);
         halfGauge = findViewById(R.id.halfGauge);
         halfGauge.setNeedleColor(Color.WHITE);
         dispatcher=AudioDispatcherFactory.fromDefaultMicrophone(22050,1024,0);
@@ -139,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
             noteText.setTextColor(Color.GRAY);
         }
 
-        pitchText.setText(Double.toString(noteTranslator.getDifference()));
 
     }
 }

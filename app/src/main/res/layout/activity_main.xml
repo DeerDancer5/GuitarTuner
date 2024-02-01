@@ -8,6 +8,15 @@
     tools:context=".MainActivity"
     android:gravity="center">
 
+    <TextView
+        android:id="@+id/textView"
+        android:padding="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="Tuner"
+        />
     <com.ekn.gruzer.gaugelibrary.HalfGauge
         android:id="@+id/halfGauge"
         android:layout_width="250dp"
@@ -37,14 +46,12 @@
         android:textSize="30sp"
         android:fontFamily="@font/seven_segment"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        >
     </TextView>
 
-    <TextView
-        android:id="@+id/pitchText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="40dp"></TextView>
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigationView"

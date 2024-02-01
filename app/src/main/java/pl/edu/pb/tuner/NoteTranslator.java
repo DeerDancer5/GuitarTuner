@@ -27,7 +27,7 @@ public class NoteTranslator {
         if(frequency!=-1.0f) {
             int semitones = (int) Math.round(12 * Math.log(frequency / 440) / Math.log(2));
             double nearest = Math.pow(2d, (semitones / 12d)) * 440d;
-            return frequency - nearest;
+            return Math.round(frequency - nearest);
         }
         return 0;
     }
